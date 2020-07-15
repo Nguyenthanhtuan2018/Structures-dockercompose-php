@@ -1,0 +1,17 @@
+version: "3"
+
+networks:
+  mycode_my-network:
+    external: true
+     
+services:
+# CONTAINER 
+  container2:
+    image: httpd:2.4
+    container_name: container-2
+    environment:
+      VIRTUAL_HOST: biscuretuannt.tk
+    networks:
+      - mycode_my-network
+    expose:
+      - "80"

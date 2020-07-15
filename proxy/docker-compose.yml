@@ -1,0 +1,21 @@
+version: "3"
+
+# NETWORK COMMON
+networks:
+  my-network:
+    driver: bridge
+      
+services:
+# CONTAINER PROXY
+  proxy:
+    image: jwilder/nginx-proxy:0.7.0
+    container_name: proxy-container
+    restart: always
+    networks:
+      - my-network
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro

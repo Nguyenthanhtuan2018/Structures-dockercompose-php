@@ -1,0 +1,28 @@
+version: "3"
+
+# NETWORK
+networks:
+  proxy_my-network:
+    external: true
+        
+# VOLUMES
+volumes:
+  dir-site:
+    driver_opts:
+      device: /home/mycode/sites
+      o: bind
+      type: none
+      
+services:
+# CONTAINER PHP FOR REC
+  my-php:
+    container_name: rec-php-container
+    build:
+      dockerfile: Dockerfile
+      context: .
+    hostname: php
+    restart: always
+    networks:
+      - proxy_my-network
+    volumes:
+      - dir-site:/home/sites

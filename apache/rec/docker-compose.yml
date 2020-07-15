@@ -1,0 +1,24 @@
+version: "3"
+
+networks:
+  proxy_my-network:
+    external: true
+
+volumes:
+  rec_dir-site:
+    external: true
+    
+services:
+# CONTAINER 
+  apache-container:
+    image: httpd:2.4
+    container_name: rec-apache-container
+    environment:
+      VIRTUAL_HOST: t-d-247.tk
+    networks:
+      - proxy_my-network
+    volumes:
+      - rec_dir-site:/home/sites
+      - ./httpd.conf:/usr/local/apache2/conf/httpd.conf
+    expose:
+      - "80"
